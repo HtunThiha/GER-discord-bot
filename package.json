@@ -5,6 +5,7 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
+    "dev": "concurrently \"nodemon --exec tsx index.ts\" \"npx tsx src/bot/bot.ts\"",
     "register-commands": "npx tsx src/commands/commands.ts"
   },
   "repository": {

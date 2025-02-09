@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.ts",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "register-commands": "npx tsx src/commands/commands.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HtunThiha/GER-discord-bot.git"

@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from "discord.js"
+import { ApplicationCommandOptionType, ApplicationCommandType } from "discord.js"
 import { REST, Routes } from "discord.js"
 import { config } from "dotenv"
 
@@ -6,7 +6,7 @@ config();
 
 type Command = {
     name: string,
-    type: ApplicationCommandOptionType,
+    type: ApplicationCommandType,
     description: string,
     options?: Option[]
 }
@@ -26,16 +26,35 @@ type Choice = {
 
 const HELLO_COMMAND: Command = {
     name: "hello",
-    "description": "Say hello to GER",
-    type: ApplicationCommandOptionType.Subcommand
+    description: "Say hello to GER",
+    type: ApplicationCommandType.ChatInput
+}
+
+const REGISTER_COMMAND: Command = {
+    name: "register",
+    description: "Register as a new player",
+    type: ApplicationCommandType.ChatInput,
+    options: [
+        {
+            name: "player",
+            description: "Enter player name",
+            type: ApplicationCommandOptionType.String,
+            required: true
+        },
+        {
+            name: "password",
+            description: "Enter password",
+            type: ApplicationCommandOptionType.String,
+            required: true
+        }
+    ]
 }
 
 
 
-
-
 const ALL_COMMANDS: Command[] = [
-    HELLO_COMMAND
+    HELLO_COMMAND,
+    REGISTER_COMMAND
 ];
 
 const rest = new REST({version: "10"}).setToken(process.env.BOT_TOKEN);

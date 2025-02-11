@@ -11,21 +11,21 @@ const handleDiscordInteractionRequests = (req: Request, res: Response, next: Nex
         if (type === InteractionType.ApplicationCommand) {
             
             const { name } = data;
+            const currentNickname = interaction.member.nick ?? interaction.member.user.global_name;
     
             switch (name) {
                 case "hello":
-                    const currentNickname = (interaction.member.nick == null) ? interaction.member.user.global_name : interaction.member.nick;
-                    res.json(embeds.helloEmbed(currentNickname));
+                    res.status(200).json(embeds.helloEmbed(currentNickname));
                     break;
             
                 default:
-                    res.json(embeds.unregisteredCommand(name));
+                    res.status(200).json(embeds.commandUnderMaintenanceEmbed(name));
                     break;
             }
         }
     } catch (error) {
         console.error("Error at handleDiscordInteractionRequests: \n", error);
-        res.json(embeds.internalServerErrorEmbed());
+        res.status(200).json(embeds.internalServerErrorEmbed());
     }
 }
 
